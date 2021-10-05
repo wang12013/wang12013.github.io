@@ -1,247 +1,148 @@
-<div align="right">
-
-  EN /
-  [中文(简体)](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/docs/README.zh-CN.md)
-
-</div>
-
-<div align="center">
-
-  # Chirpy Jekyll Theme
-
-  [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy?color=brightgreen)](https://rubygems.org/gems/jekyll-theme-chirpy)
-  [![Build Status](https://github.com/cotes2020/jekyll-theme-chirpy/workflows/build/badge.svg?branch=master&event=push)](https://github.com/cotes2020/jekyll-theme-chirpy/actions?query=branch%3Amaster+event%3Apush)
-  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8220b926db514f13afc3f02b7f884f4b)](https://app.codacy.com/manual/cotes2020/jekyll-theme-chirpy?utm_source=github.com&utm_medium=referral&utm_content=cotes2020/jekyll-theme-chirpy&utm_campaign=Badge_Grade_Dashboard)
-  [![GitHub license](https://img.shields.io/github/license/cotes2020/jekyll-theme-chirpy.svg)](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE)
-  [![996.icu](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg)](https://996.icu)
-
-  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
-
-  [**Live Demo →**](https://chirpy.cotes.info)
-
-  [![Devices Mockup](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images@0a003683c0c3ca549d12c309f9b3e03ea20981e5/commons/devices-mockup.png)](https://chirpy.cotes.info)
-
-</div>
-
-## Features
-
-- Localized Layout
-- Configurable Theme Mode
-- Pinned Posts
-- Hierarchical Categories
-- Last Modified Date for Posts
-- Table of Contents
-- Automatically Recommend Related Posts
-- Syntax Highlighting
-- Mathematical Expressions
-- Mermaid Diagram & Flowchart
-- Search
-- Atom Feeds
-- Disqus Comments
-- Google Analytics
-- GA Pageviews Reporting (Advanced)
-- SEO & Performance Optimization
-
-## Prerequisites
-
-Follow the instructions in the [Jekyll Docs](https://jekyllrb.com/docs/installation/) to complete the installation of `Ruby`, `RubyGems`, `Jekyll`, and `Bundler`.
-
-## Installation
-
-### Creating a New Site
-
-There are two ways to create a new repository for this theme:
-
-- [**Using the Chirpy Starter**](#option-1-using-the-chirpy-starter) - Easy to upgrade, isolates irrelevant project files so you can focus on writing.
-- [**Forking on GitHub**](#option-2-forking-on-github) - Convenient for custom development, but difficult to upgrade. Unless you are familiar with Jekyll and are determined to tweak or contribute to this project, this approach is not recommended.
-
-#### Option 1. Using the Chirpy Starter
-
-Create a new repository from the [**Chirpy Starter**][use-starter] and name it `<GH_USERNAME>.github.io`, where `GH_USERNAME` represents your GitHub username.
-
-#### Option 2. Forking on GitHub
-
-[Fork **Chirpy**](https://github.com/cotes2020/jekyll-theme-chirpy/fork) on GitHub and rename it to `<GH_USERNAME>.github.io`. Please note that the default branch code is in development.  If you want the site to be stable, please switch to the [latest tag][latest-tag] and start writing.
-
-And then execute:
-
-```console
-$ bash tools/init.sh
-```
-
-> **Note**: If you don't want to deploy your site on GitHub Pages, append option `--no-gh` at the end of the above command.
-
-The above command will:
-
-1. Removes some files or directories from your repository:
-    - `.travis.yml`
-    - files under `_posts`
-    - folder `docs`
-
-2. If the option `--no-gh` is provided, the directory `.github` will be deleted. Otherwise, set up the GitHub Action workflow by removing the extension `.hook` of `.github/workflows/pages-deploy.yml.hook`, and then remove the other files and directories in the folder `.github`.
-
-3. Removes item `Gemfile.lock` from `.gitignore`.
-
-4. Creates a new commit to save the changes automatically.
-
-### Installing Dependencies
-
-Before running for the first time, go to the root directory of your site, and install dependencies as follows:
-
-```console
-$ bundle
-```
-
-## Usage
-
-### Configuration
-
-Update the variables of `_config.yml` as needed. Some of them are typical options:
-
-- `url`
-- `avatar`
-- `timezone`
-- `lang`
-
-### Customing Stylesheet
-
-If you need to customize the stylesheet, copy the theme's `assets/css/style.scss` to the same path on your Jekyll site, and then add the custom style at the end of the style file.
-
-Starting from [`v4.1.0`][chirpy-4.1.0], if you want to overwrite the SASS variables defined in `_sass/addon/variables.scss`, create a new file `_sass/variables-hook.scss` and assign new values to the target variable in it.
-
-### Running Local Server
-
-You may want to preview the site contents before publishing, so just run it by:
-
-```console
-$ bundle exec jekyll s
-```
-
-Or run the site on Docker with the following command:
-
-```console
-$ docker run -it --rm \
-    --volume="$PWD:/srv/jekyll" \
-    -p 4000:4000 jekyll/jekyll \
-    jekyll serve
-```
-
-After a while, the local service will be published at _<http://127.0.0.1:4000>_.
-
-### Deployment
-
-Before the deployment begins, check out the file `_config.yml` and make sure the `url` is configured correctly. Furthermore, if you prefer the [**project site**](https://help.github.com/en/github/working-with-github-pages/about-github-pages#types-of-github-pages-sites) and don't use a custom domain, or you want to visit your website with a base URL on a web server other than **GitHub Pages**, remember to change the `baseurl` to your project name that starts with a slash, e.g, `/project-name`.
-
-Now you can choose ONE of the following methods to deploy your Jekyll site.
-
-#### Deploy by Using Github Actions
-
-For security reasons, GitHub Pages build runs on `safe` mode, which restricts us from using plugins to generate additional page files. Therefore, we can use **GitHub Actions** to build the site, store the built site files on a new branch, and use that branch as the source of the GitHub Pages service.
-
-Quickly check the files needed for GitHub Actions build:
-
-- Ensure your Jekyll site has the file `.github/workflows/pages-deploy.yml`. Otherwise, create a new one and fill in the contents of the [sample file][workflow], and the value of the `on.push.branches` should be the same as your repo's default branch name.
-
-- Ensure your Jekyll site has file `tools/deploy.sh`. Otherwise, copy it from here to your Jekyll site.
-
-- Furthermore, if you have committed `Gemfile.lock` to the repo, and your runtime system is not Linux, don't forget to update the platform list in the lock file:
-
-  ```console
-  $ bundle lock --add-platform x86_64-linux
-  ```
-
-After the above steps, rename your repository to `<GH_USERNAME>.github.io` on GitHub.
-
-Now publish your Jekyll site by:
-
-1. Push any commit to remote to trigger the GitHub Actions workflow. Once the build is complete and successful, a new remote branch named `gh-pages` will appear to store the built site files.
-
-2. Browse to your repository on GitHub. Select the tab _Settings_, then click _Pages_ in the left navigation bar, and then in the section **Source** of _GitHub Pages_, select the `/(root)` directory of branch `gh-pages` as the [publishing source][pages-src]. Remember to click <kbd>Save</kbd> before leaving.
-
-    ![gh-pages-sources](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images@0a003683c0c3ca549d12c309f9b3e03ea20981e5/posts/20190809/gh-pages-sources.png)
-
-3. Visit your website at the address indicated by GitHub.
-
-#### Manually Build and Deploy
-
-On self-hosted servers, you cannot enjoy the convenience of **GitHub Actions**. Therefore, you should build the site on your local machine and then upload the site files to the server.
-
-Go to the root of the source project, and build your site as follows:
-
-```console
-$ JEKYLL_ENV=production bundle exec jekyll b
-```
-
-Or build the site on Docker:
-
-```console
-$ docker run -it --rm \
-    --env JEKYLL_ENV=production \
-    --volume="$PWD:/srv/jekyll" \
-    jekyll/jekyll \
-    jekyll build
-```
-
-Unless you specified the output path, the generated site files will be placed in folder `_site` of the project's root directory. Now you should upload those files to the target server.
-
-### Upgrading
-
-It depends on how you use the theme:
-
-- If you are using the theme gem (there will be `gem "jekyll-theme-chirpy"` in the `Gemfile`), editing the `Gemfile` and update the version number of the theme gem, for example:
-
-    ```diff
-    - gem "jekyll-theme-chirpy", "~> 3.2", ">= 3.2.1"
-    + gem "jekyll-theme-chirpy", "~> 3.3", ">= 3.3.0"
-    ```
-
-    And then execute the following command:
-
-    ```console
-    $ bundle update jekyll-theme-chirpy
-    ```
-
-    As the version upgrades, the critical files (for details, see the [Startup Template][starter]) and configuration options will change. Please refer to the [Upgrade Guide](https://github.com/cotes2020/jekyll-theme-chirpy/wiki/Upgrade-Guide) to keep your repo's files in sync with the latest version of the theme.
-
-- If you forked from the source project (there will be `gemspec` in the `Gemfile` of your site), then merge the [latest upstream tags][latest-tag] into your Jekyll site to complete the upgrade.
-The merge is likely to conflict with your local modifications. Please be patient and careful to resolve these conflicts.
-
-## Documentation
-
-For more details and a better reading experience, please check out the [tutorials on the demo site](https://chirpy.cotes.info/categories/tutorial/). In the meanwhile, a copy of the tutorial is also available on the [Wiki](https://github.com/cotes2020/jekyll-theme-chirpy/wiki). Please note that the tutorials on the demo website or Wiki are based on the latest release, and the features of `master` branch are usually ahead of the documentation.
-
-## Contributing
-
-The old saying, "Two heads are better than one." Consequently, welcome to report bugs, improve code quality or submit a new feature. For more information, see [contributing guidelines](.github/CONTRIBUTING.md).
-
-## Credits
-
-This theme is mainly built with [Jekyll](https://jekyllrb.com/) ecosystem, [Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/) and some other wonderful tools (their copyright information can be found in the relevant files). The avatar and favicon design come from [Clipart Max](https://www.clipartmax.com/middle/m2i8b1m2K9Z5m2K9_ant-clipart-childrens-ant-cute/).
-
-:tada: Thanks to all the volunteers who contributed to this project, their GitHub IDs are on [this list](https://github.com/cotes2020/jekyll-theme-chirpy/graphs/contributors). Also, I won't forget those guys who submitted the issues or unmerged PR because they reported bugs, shared ideas or inspired me to write more readable documentation.
-
-Last but not least, thank [JetBrains][jb] for providing the open source license.
-
-## Sponsoring
-
-If you like this theme or find it helpful, please consider sponsoring me, because it will encourage and help me better maintain the project, I will be very grateful!
-
-[![Buy Me a Coffee](https://img.shields.io/badge/-Buy%20Me%20a%20Coffee-ff813f?logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/coteschung)
-[![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)][cn-donation]
-[![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)][cn-donation]
-
-## License
-
-This work is published under [MIT](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE) License.
-
-[starter]: https://github.com/cotes2020/chirpy-starter
-[use-starter]: https://github.com/cotes2020/chirpy-starter/generate
-[workflow]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/.github/workflows/pages-deploy.yml.hook
-[chirpy-4.1.0]: https://github.com/cotes2020/jekyll-theme-chirpy/releases/tag/v4.1.0
-[pages-src]: https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-[latest-tag]: https://github.com/cotes2020/jekyll-theme-chirpy/tags
-
-<!-- ReadMe links -->
-
-[jb]: https://www.jetbrains.com/?from=jekyll-theme-chirpy
-[cn-donation]: https://cotes.gitee.io/alipay-wechat-donation/
+<p align="center">
+    <a href="https://dunwu.github.io/javacore/" target="_blank" rel="noopener noreferrer">
+        <img src="https://raw.githubusercontent.com/dunwu/images/dev/common/dunwu-logo-200.png" alt="logo" width="150px"/>
+    </a>
+</p>
+
+<p align="center">
+    <img src="https://badgen.net/github/license/dunwu/javacore" alt="license">
+    <img src="https://travis-ci.com/dunwu/javacore.svg?branch=master" alt="build">
+</p>
+
+<h1 align="center">JavaCore</h1>
+
+> ☕ **JavaCore** 是一个 Java 核心技术教程。
+>
+> - 🔁 项目同步维护：[Github](https://github.com/dunwu/javacore/) | [Gitee](https://gitee.com/turnon/javacore/)
+> - 📖 电子书阅读：[Github Pages](https://dunwu.github.io/javacore/) | [Gitee Pages](http://turnon.gitee.io/javacore/)
+
+|               1️⃣                |               2️⃣                |           3️⃣            |           4️⃣            |         5️⃣         |             6️⃣              |
+| :-----------------------------: | :-----------------------------: | :---------------------: | :---------------------: | :----------------: | :-------------------------: |
+| [Java 基础特性](#java-基础特性) | [Java 高级特性](#java-高级特性) | [Java 容器](#java-容器) | [Java 并发](#java-并发) | [JavaIO](#java-io) | [Java 虚拟机](#java-虚拟机) |
+
+## 📖 内容
+
+> [Java 面试题集 💯](docs/java-interview.md)
+
+### [Java 基础特性](docs/basics)
+
+- [Java 开发环境](docs/basics/java-develop-env.md)
+- [Java 基础语法特性](docs/basics/java-basic-grammar.md)
+- [Java 基本数据类型](docs/basics/java-data-type.md)
+- [Java String 类型](docs/basics/java-string.md)
+- [Java 面向对象](docs/basics/java-oop.md)
+- [Java 方法](docs/basics/java-method.md)
+- [Java 数组](docs/basics/java-array.md)
+- [Java 枚举](docs/basics/java-enum.md)
+- [Java 控制语句](docs/basics/java-control-statement.md)
+- [Java 异常](docs/basics/java-exception.md)
+- [Java 泛型](docs/basics/java-generic.md)
+- [Java 反射](docs/basics/java-reflection.md)
+- [Java 注解](docs/basics/java-annotation.md)
+
+### [Java 高级特性](docs/advanced)
+
+- [Java 正则从入门到精通](docs/advanced/java-regex.md) - 关键词：`Pattern`、`Matcher`、`捕获与非捕获`、`反向引用`、`零宽断言`、`贪婪与懒惰`、`元字符`、`DFA`、`NFA`
+- [Java 编码和加密](docs/advanced/java-crypto.md) - 关键词：`Base64`、`消息摘要`、`数字签名`、`对称加密`、`非对称加密`、`MD5`、`SHA`、`HMAC`、`AES`、`DES`、`DESede`、`RSA`
+- [Java 本地化](docs/advanced/java-locale.md)
+- [Java JDK8](docs/advanced/jdk8.md) - 关键词：`Stream`、`lambda`、`Optional`、`@FunctionalInterface`
+
+### [Java 容器](docs/container)
+
+![img](https://raw.githubusercontent.com/dunwu/images/dev/snap/20200221175550.png)
+
+- [Java 容器简介](docs/container/java-container.md) - 关键词：`Collection`、`泛型`、`Iterable`、`Iterator`、`Comparable`、`Comparator`、`Cloneable`、`fail-fast`
+- [Java 容器之 List](docs/container/java-container-list.md) - 关键词：`List`、`ArrayList`、`LinkedList`
+- [Java 容器之 Map](docs/container/java-container-map.md) - 关键词：`Map`、`HashMap`、`TreeMap`、`LinkedHashMap`、`WeakHashMap`
+- [Java 容器之 Set](docs/container/java-container-set.md) - 关键词：`Set`、`HashSet`、`TreeSet`、`LinkedHashSet`、`EmumSet`
+- [Java 容器之 Queue](docs/container/java-container-queue.md) - 关键词：`Queue`、`Deque`、`ArrayDeque`、`LinkedList`、`PriorityQueue`
+
+### [Java 并发](docs/concurrent)
+
+![img](https://raw.githubusercontent.com/dunwu/images/dev/snap/20200221175827.png)
+
+- [Java 并发简介](docs/concurrent/Java并发简介.md) - 关键词：`进程`、`线程`、`安全性`、`活跃性`、`性能`、`死锁`、`饥饿`、`上下文切换`
+- [Java 线程基础](docs/concurrent/Java线程基础.md) - 关键词：`Thread`、`Runnable`、`Callable`、`Future`、`wait`、`notify`、`notifyAll`、`join`、`sleep`、`yeild`、`线程状态`、`线程通信`
+- [Java 并发核心机制](docs/concurrent/Java并发核心机制.md) - 关键词：`synchronized`、`volatile`、`CAS`、`ThreadLocal`
+- [Java 并发锁](docs/concurrent/Java锁.md) - 关键词：`AQS`、`ReentrantLock`、`ReentrantReadWriteLock`、`Condition`
+- [Java 原子类](docs/concurrent/Java原子类.md) - 关键词：`CAS`、`Atomic`
+- [Java 并发容器](docs/concurrent/Java并发和容器.md) - 关键词：`ConcurrentHashMap`、`CopyOnWriteArrayList`
+- [Java 线程池](docs/concurrent/Java线程池.md) - 关键词：`Executor`、`ExecutorService`、`ThreadPoolExecutor`、`Executors`
+- [Java 并发工具类](docs/concurrent/Java并发工具类.md) - 关键词：`CountDownLatch`、`CyclicBarrier`、`Semaphore`
+- [Java 内存模型](docs/concurrent/Java内存模型.md) - 关键词：`JMM`、`volatile`、`synchronized`、`final`、`Happens-Before`、`内存屏障`
+- [Java Fork Join](docs/concurrent/ForkJoin框架.md) - 关键词：
+
+### [Java IO](docs/io)
+
+![img](https://raw.githubusercontent.com/dunwu/images/dev/snap/20200630205329.png)
+
+- [Java IO 模型](docs/io/java-io.md) - 关键词：`InputStream`、`OutputStream`、`Reader`、`Writer`、`阻塞`
+- [Java NIO](docs/io/java-nio.md) - 关键词：`Channel`、`Buffer`、`Selector`、`非阻塞`、`多路复用`
+- [Java 序列化](docs/io/java-serialization.md) - 关键词：`Serializable`、`serialVersionUID`、`transient`、`Externalizable`、`writeObject`、`readObject`
+- [Java 网络编程](docs/io/java-net.md) - 关键词：`Socket`、`ServerSocket`、`DatagramPacket`、`DatagramSocket`
+- [Java IO 工具类](docs/io/java-io-tool.md) - 关键词：`File`、`RandomAccessFile`、`System`、`Scanner`
+
+### [Java 虚拟机](docs/jvm)
+
+![img](https://raw.githubusercontent.com/dunwu/images/dev/snap/20200628154803.png)
+
+- [JVM 体系结构](docs/jvm/jvm-architecture.md)
+- [JVM 内存区域](docs/jvm/jvm-memory.md) - 关键词：`程序计数器`、`虚拟机栈`、`本地方法栈`、`堆`、`方法区`、`运行时常量池`、`直接内存`、`OutOfMemoryError`、`StackOverflowError`
+- [JVM 垃圾收集](docs/jvm/jvm-gc.md) - 关键词：`GC Roots`、`Serial`、`Parallel`、`CMS`、`G1`、`Minor GC`、`Full GC`
+- [JVM 字节码](docs/jvm/jvm-bytecode.md) - 关键词：`bytecode`、`asm`、`javassist`
+- [JVM 类加载](docs/jvm/jvm-class-loader.md) - 关键词：`ClassLoader`、`双亲委派`
+- [JVM 实战](docs/jvm/jvm-action.md) - 关键词：`配置`、`调优`
+- [JVM 命令行工具](docs/jvm/jvm-cli-tools.md) - 关键词：`jps`、`jstat`、`jmap` 、`jstack`、`jhat`、`jinfo`
+- [JVM GUI 工具](docs/jvm/jvm-gui-tools.md) - 关键词：`jconsole`、`jvisualvm`、`MAT`、`JProfile`、`Arthas`
+- [TroubleShooting](docs/jvm/trouble-shooting.md) - 关键词：`CPU`、`内存`、`磁盘`、`网络`、`GC`
+
+## 📚 资料
+
+- **书籍**
+  - Java 四大名著
+    - [《Java 编程思想（Thinking in java）》](https://book.douban.com/subject/2130190/)
+    - [《Java 核心技术 卷 I 基础知识》](https://book.douban.com/subject/26880667/)
+    - [《Java 核心技术 卷 II 高级特性》](https://book.douban.com/subject/27165931/)
+    - [《Effective Java》](https://book.douban.com/subject/30412517/)
+  - Java 并发
+    - [《Java 并发编程实战》](https://book.douban.com/subject/10484692/)
+    - [《Java 并发编程的艺术》](https://book.douban.com/subject/26591326/)
+  - Java 虚拟机
+    - [《深入理解 Java 虚拟机》](https://book.douban.com/subject/34907497/)
+  - Java 入门
+    - [《O'Reilly：Head First Java》](https://book.douban.com/subject/2000732/)
+    - [《疯狂 Java 讲义》](https://book.douban.com/subject/3246499/)
+  - 其他
+    - [《Head First 设计模式》](https://book.douban.com/subject/2243615/)
+    - [《Java 网络编程》](https://book.douban.com/subject/1438754/)
+    - [《Java 加密与解密的艺术》](https://book.douban.com/subject/25861566/)
+    - [《阿里巴巴 Java 开发手册》](https://book.douban.com/subject/27605355/)
+- **教程、社区**
+  - [Runoob Java 教程](https://www.runoob.com/java/java-tutorial.html)
+  - [java-design-patterns](https://github.com/iluwatar/java-design-patterns)
+  - [Java](https://github.com/TheAlgorithms/Java)
+  - [《Java 核心技术面试精讲》](https://time.geekbang.org/column/intro/82)
+  - [《Java 性能调优实战》](https://time.geekbang.org/column/intro/100028001)
+  - [《Java 业务开发常见错误 100 例》](https://time.geekbang.org/column/intro/100047701)
+  - [深入拆解 Java 虚拟机](https://time.geekbang.org/column/intro/100010301)
+  - [《Java 并发编程实战》](https://time.geekbang.org/column/intro/100023901)
+- **面试**
+  - [CS-Notes](https://github.com/CyC2018/CS-Notes)
+  - [JavaGuide](https://github.com/Snailclimb/JavaGuide)
+  - [advanced-java](https://github.com/doocs/advanced-java)
+
+## 🚪 传送
+
+◾ 🏠 [JAVACORE 首页](https://github.com/dunwu/javacore) ◾ 🎯 [我的博客](https://github.com/dunwu/blog) ◾
+
+> 你可能会感兴趣：
+
+- [Java 教程](https://github.com/dunwu/java-tutorial) 📚
+- [JavaCore 教程](https://dunwu.github.io/javacore/) 📚
+- [JavaTech 教程](https://dunwu.github.io/javatech/) 📚
+- [Spring 教程](https://dunwu.github.io/spring-tutorial/) 📚
+- [Spring Boot 教程](https://dunwu.github.io/spring-boot-tutorial/) 📚
+- [数据库教程](https://dunwu.github.io/db-tutorial/) 📚
+- [数据结构和算法教程](https://dunwu.github.io/algorithm-tutorial/) 📚
+- [Linux 教程](https://dunwu.github.io/linux-tutorial/) 📚
+- [Nginx 教程](https://github.com/dunwu/nginx-tutorial/) 📚
